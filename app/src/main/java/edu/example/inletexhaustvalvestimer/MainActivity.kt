@@ -1,14 +1,8 @@
 package edu.example.inletexhaustvalvestimer
 
 import android.os.Bundle
-import android.os.SystemClock
-import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.Chronometer
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import edu.example.inletexhaustvalvestimer.view.ValvesFragment
+import edu.example.inletexhaustvalvestimer.view.valves.ValvesFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +13,9 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.fragmentContainer, ValvesFragment())
+            .add(R.id.fragmentContainer,
+                ValvesFragment()
+            )
             .commit()
     }
 }

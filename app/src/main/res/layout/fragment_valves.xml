@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".view.ValvesFragment">
+    tools:context=".view.valves.ValvesFragment">
 
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="30dp"
-        tools:text="1st valve" />
+        tools:text="Unit #1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/timerContainer"
@@ -45,61 +45,65 @@
 
 
         <Chronometer
-            android:id="@+id/chronometerFirst"
+            android:id="@+id/chronometerFirstIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
             android:layout_weight="0"
             android:background="@color/gray"
             android:format="@string/chronometer_initial_format"
             android:padding="30dp"
-            app:layout_constraintEnd_toStartOf="@id/chronometerSecond"
+            app:layout_constraintEnd_toStartOf="@id/chronometerFirstEx"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView" />
 
         <Chronometer
-            android:id="@+id/chronometerSecond"
+            android:id="@+id/chronometerFirstEx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
             android:layout_weight="0"
             android:background="@color/gray"
             android:format="@string/chronometer_initial_format"
             android:padding="30dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/chronometerFirst"
+            app:layout_constraintStart_toEndOf="@+id/chronometerFirstIn"
             app:layout_constraintTop_toBottomOf="@id/textView2" />
 
         <Chronometer
-            android:id="@+id/chronometerThird"
+            android:id="@+id/chronometerSecondIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
             android:layout_weight="0"
             android:background="@color/gray"
             android:format="@string/chronometer_initial_format"
             android:padding="30dp"
-            app:layout_constraintEnd_toStartOf="@id/chronometerFourth"
+            app:layout_constraintEnd_toStartOf="@id/chronometerSecondEx"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chronometerFirst" />
+            app:layout_constraintTop_toBottomOf="@+id/chronometerFirstIn" />
 
         <Chronometer
-            android:id="@+id/chronometerFourth"
+            android:id="@+id/chronometerSecondEx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
             android:layout_weight="0"
             android:background="@color/gray"
             android:format="@string/chronometer_initial_format"
             android:padding="30dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/chronometerThird"
-            app:layout_constraintTop_toBottomOf="@+id/chronometerSecond" />
+            app:layout_constraintStart_toEndOf="@+id/chronometerSecondIn"
+            app:layout_constraintTop_toBottomOf="@+id/chronometerFirstEx" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/btn"
+        android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
