@@ -12,4 +12,10 @@ object ValveStore {
     fun getValuesList() : ArrayList<ScreenValues> {
         return list
     }
+
+    fun clearData() {
+        if (list.size == 0) {
+            list.clear()
+        }
+    }
 }

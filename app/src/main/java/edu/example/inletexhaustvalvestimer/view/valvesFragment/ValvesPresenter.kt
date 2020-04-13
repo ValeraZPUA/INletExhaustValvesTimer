@@ -1,6 +1,5 @@
-package edu.example.inletexhaustvalvestimer.view.valves
+package edu.example.inletexhaustvalvestimer.view.valvesFragment
 
-import android.util.Log
 import edu.example.inletexhaustvalvestimer.models.ValveStore
 
 class ValvesPresenter {

@@ -13,6 +13,11 @@
     <string name="ex">Ex</string>
     <string name="empty_data">Check all valves before</string>
     <string name="restart_error">To reset data make long click</string>
-    <string name="unit">Unit #%s</string>
+    <string name="unit">Cyl. %s</string>
+    <string name="result">Result</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="results">RESULTS</string>
 
 </resources>

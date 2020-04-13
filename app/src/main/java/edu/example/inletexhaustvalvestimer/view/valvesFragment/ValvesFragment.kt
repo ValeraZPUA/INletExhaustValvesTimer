@@ -1,5 +1,6 @@
-package edu.example.inletexhaustvalvestimer.view.valves
+package edu.example.inletexhaustvalvestimer.view.valvesFragment
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.SystemClock
 import androidx.fragment.app.Fragment
@@ -9,8 +10,10 @@ import android.view.ViewGroup
 import android.widget.Chronometer
 import android.widget.TextView
 import android.widget.Toast
+import edu.example.inletexhaustvalvestimer.MainActivity
 
 import edu.example.inletexhaustvalvestimer.R
+import edu.example.inletexhaustvalvestimer.view.resultFragment.ResultFragment
 import kotlinx.android.synthetic.main.fragment_valves.*
 
 class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListener {
@@ -39,7 +42,8 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
 
     private var chronometersList = arrayListOf<Chronometer>()
 
-    private val presenter = ValvesPresenter()
+    private val presenter =
+        ValvesPresenter()
 
     private var unit = 1
 
@@ -72,13 +76,26 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
         }
 
         btnNext.setOnClickListener {
-            if (firstInValue == 0L || firstExValue == 0L || secondInValue == 0L || secondExValue == 0L) {
+            if (unit == 9) {
+                presenter.saveData(firstInValue, firstExValue, secondInValue, secondExValue)
+                activity!!
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, ResultFragment())
+                    .commit()
+                fart()
+            } else if (firstInValue == 0L || firstExValue == 0L || secondInValue == 0L || secondExValue == 0L) {
                 showToast(getString(R.string.empty_data))
             } else {
                 presenter.saveData(firstInValue, firstExValue, secondInValue, secondExValue)
                 reset()
             }
         }
+    }
+
+    private fun fart() {
+        val resID = resources.getIdentifier("fart", "raw", requireContext().packageName)
+        val mediaPlayer = MediaPlayer.create(requireContext(), resID).start()
     }
 
     private fun reset() {
@@ -102,6 +119,9 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
 
         unit++
         title.text = getString(R.string.unit, unit.toString())
+        if (unit == 9) {
+            btnNext.text = getString(R.string.result)
+        }
     }
 
     override fun onDestroy() {
