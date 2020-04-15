@@ -16,12 +16,12 @@ import kotlinx.android.synthetic.main.fragment_result.*
 class ResultFragment : Fragment() {
 
     private lateinit var resultList: ArrayList<ScreenValues>
+    private lateinit var adapter: ResultAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_result, container, false)
     }
 
@@ -32,9 +32,13 @@ class ResultFragment : Fragment() {
 
         resultList = ValveStore.getValuesList()
         val layoutManager = LinearLayoutManager(requireContext())
-        val adapter = ResultAdapter(resultList);
+        adapter = ResultAdapter(resultList);
         recycler.adapter = adapter
         recycler.layoutManager = layoutManager
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        adapter.clearData()
     }
 }

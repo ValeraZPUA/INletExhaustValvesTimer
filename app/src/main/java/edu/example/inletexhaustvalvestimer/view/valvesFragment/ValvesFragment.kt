@@ -1,8 +1,10 @@
 package edu.example.inletexhaustvalvestimer.view.valvesFragment
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.SystemClock
+import android.os.Vibrator
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.Chronometer
 import android.widget.TextView
 import android.widget.Toast
-import edu.example.inletexhaustvalvestimer.MainActivity
 
 import edu.example.inletexhaustvalvestimer.R
 import edu.example.inletexhaustvalvestimer.view.resultFragment.ResultFragment
@@ -41,9 +42,8 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
     private var secondExValue: Long = 0
 
     private var chronometersList = arrayListOf<Chronometer>()
-
-    private val presenter =
-        ValvesPresenter()
+    private lateinit var vibro: Vibrator
+    private val presenter = ValvesPresenter()
 
     private var unit = 1
 
@@ -56,7 +56,7 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        vibro = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         title = view.findViewById(R.id.title)
         title.text = getString(R.string.unit, unit.toString())
 
@@ -117,6 +117,10 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
         secondInValue = 0
         secondExValue = 0
 
+        for (chronometer in chronometersList) {
+            chronometer.setBackgroundColor(requireContext().resources.getColor(R.color.green))
+        }
+
         unit++
         title.text = getString(R.string.unit, unit.toString())
         if (unit == 9) {
@@ -133,28 +137,28 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
         when (v!!.id) {
             R.id.chronometerFirstIn -> {
                 if (isStoppedFirstIn) {
-                    chronometerFirstIn.base = SystemClock.elapsedRealtime()
+                    resetChronometer(chronometerFirstIn)
                     isStartedFirstIn = false
                     firstInValue = 0
                 }
             }
             R.id.chronometerSecondIn -> {
                 if (isStoppedSecondIn) {
-                    chronometerSecondIn.base = SystemClock.elapsedRealtime()
+                    resetChronometer(chronometerSecondIn)
                     isStartedSecondIn = false
                     secondInValue = 0
                 }
             }
             R.id.chronometerFirstEx -> {
                 if (isStoppedFirstEx) {
-                    chronometerFirstEx.base = SystemClock.elapsedRealtime()
+                    resetChronometer(chronometerFirstEx)
                     isStartedFirstEx = false
                     firstExValue = 0
                 }
             }
             R.id.chronometerSecondEx -> {
                 if (isStoppedSecondEx) {
-                    chronometerSecondEx.base = SystemClock.elapsedRealtime()
+                    resetChronometer(chronometerSecondEx)
                     isStartedSecondEx = false
                     secondExValue = 0
                 }
@@ -164,68 +168,85 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
     }
 
     override fun onClick(v: View?) {
+        vibro.vibrate(100, null)
         when (v!!.id) {
             R.id.chronometerFirstIn -> {
                 if (!isStartedFirstIn) {
-                    chronometerFirstIn.base = SystemClock.elapsedRealtime()
-                    chronometerFirstIn.start()
+                    startChronometer(chronometerFirstIn)
                     isStartedFirstIn = true
                     isStoppedFirstIn = false
                 } else {
                     if (isStoppedFirstIn) {
                         showToast(getString(R.string.restart_error))
+                    } else {
+                        stopChronometer(chronometerFirstIn)
+                        firstInValue = SystemClock.elapsedRealtime() - chronometerFirstIn.base
+                        isStoppedFirstIn = true
                     }
-                    chronometerFirstIn.stop()
-                    firstInValue = SystemClock.elapsedRealtime() - chronometerFirstIn.base
-                    isStoppedFirstIn = true
                 }
             }
             R.id.chronometerSecondIn -> {
                 if (!isStartedSecondIn) {
-                    chronometerSecondIn.base = SystemClock.elapsedRealtime()
-                    chronometerSecondIn.start()
+                    startChronometer(chronometerSecondIn)
                     isStartedSecondIn = true
                     isStoppedSecondIn = false
                 } else {
                     if (isStoppedSecondIn) {
                         showToast(getString(R.string.restart_error))
+                    } else {
+                        stopChronometer(chronometerSecondIn)
+                        secondInValue = SystemClock.elapsedRealtime() - chronometerSecondIn.base
+                        isStoppedSecondIn = true
                     }
-                    chronometerSecondIn.stop()
-                    secondInValue = SystemClock.elapsedRealtime() - chronometerSecondIn.base
-                    isStoppedSecondIn = true
                 }
             }
             R.id.chronometerFirstEx -> {
                 if (!isStartedFirstEx) {
-                    chronometerFirstEx.base = SystemClock.elapsedRealtime()
-                    chronometerFirstEx.start()
+                    startChronometer(chronometerFirstEx)
                     isStartedFirstEx = true
                     isStoppedFirstEx = false
                 } else {
                     if (isStoppedFirstEx) {
                         showToast(getString(R.string.restart_error))
+                    } else {
+                        stopChronometer(chronometerFirstEx)
+                        firstExValue = SystemClock.elapsedRealtime() - chronometerFirstEx.base
+                        isStoppedFirstEx = true
                     }
-                    chronometerFirstEx.stop()
-                    firstExValue = SystemClock.elapsedRealtime() - chronometerFirstEx.base
-                    isStoppedFirstEx = true
                 }
             }
             R.id.chronometerSecondEx -> {
                 if (!isStartedSecondEx) {
-                    chronometerSecondEx.base = SystemClock.elapsedRealtime()
-                    chronometerSecondEx.start()
+                    startChronometer(chronometerSecondEx)
                     isStartedSecondEx = true
                     isStoppedSecondEx = false
                 } else {
                     if (isStoppedSecondEx) {
                         showToast(getString(R.string.restart_error))
+                    } else {
+                        stopChronometer(chronometerSecondEx)
+                        secondExValue = SystemClock.elapsedRealtime() - chronometerSecondEx.base
+                        isStoppedSecondEx = true
                     }
-                    chronometerSecondEx.stop()
-                    secondExValue = SystemClock.elapsedRealtime() - chronometerSecondEx.base
-                    isStoppedSecondEx = true
                 }
             }
         }
+    }
+
+    private fun resetChronometer(chronometer: Chronometer) {
+        chronometer.base = SystemClock.elapsedRealtime()
+        chronometer.setBackgroundColor(requireContext().resources.getColor(R.color.green))
+    }
+
+    private fun stopChronometer(chronometer: Chronometer) {
+        chronometer.stop()
+        chronometer.setBackgroundColor(requireContext().resources.getColor(R.color.red))
+    }
+
+    private fun startChronometer(chronometer: Chronometer) {
+        chronometer.base = SystemClock.elapsedRealtime()
+        chronometer.start()
+        chronometer.setBackgroundColor(requireContext().resources.getColor(R.color.yellow))
     }
 
     private fun showToast(message: String) {

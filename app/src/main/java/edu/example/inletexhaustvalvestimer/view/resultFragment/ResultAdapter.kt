@@ -42,4 +42,9 @@ class ResultAdapter(private val resultList: ArrayList<ScreenValues>) :
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+
+    fun clearData() {
+        resultList.clear()
+        notifyDataSetChanged()
+    }
 }

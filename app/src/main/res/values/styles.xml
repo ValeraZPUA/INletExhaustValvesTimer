@@ -8,8 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name = "TimerStyle">
+    <style name="ChronometerStyle">
+        <item name="android:padding">@dimen/chronometer_padding</item>
+        <item name="android:background">@color/green</item>
+    </style>
 
+    <style name="ChronometerStyleIn" parent="ChronometerStyle">
+        <item name="android:layout_marginTop">@dimen/chronometer_margin_top</item>
+        <item name="android:layout_marginStart">@dimen/chronometer_margin_start</item>
+    </style>
+
+    <style name="ChronometerStyleEx" parent="ChronometerStyle">
+        <item name="android:layout_marginTop">@dimen/chronometer_margin_top</item>
+        <item name="android:layout_marginEnd">@dimen/chronometer_margin_end</item>
+    </style>
+
+    <style name="TitleStyle">
+        <item name="android:padding">@dimen/chronometer_padding</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>
