@@ -1,12 +1,10 @@
-package edu.example.inletexhaustvalvestimer
+package com.lyutyvaler4ik.inletexhaustvalvestimer
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import edu.example.inletexhaustvalvestimer.models.ValveStore
-import edu.example.inletexhaustvalvestimer.view.valvesFragment.ValvesFragment
+import com.lyutyvaler4ik.inletexhaustvalvestimer.view.valvesFragment.ValvesFragment
 
 class MainActivity : AppCompatActivity() {
 

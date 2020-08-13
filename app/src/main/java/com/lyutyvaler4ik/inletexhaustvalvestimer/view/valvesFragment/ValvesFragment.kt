@@ -1,4 +1,4 @@
-package edu.example.inletexhaustvalvestimer.view.valvesFragment
+package com.lyutyvaler4ik.inletexhaustvalvestimer.view.valvesFragment
 
 import android.content.Context
 import android.media.MediaPlayer
@@ -13,8 +13,8 @@ import android.widget.Chronometer
 import android.widget.TextView
 import android.widget.Toast
 
-import edu.example.inletexhaustvalvestimer.R
-import edu.example.inletexhaustvalvestimer.view.resultFragment.ResultFragment
+import com.lyutyvaler4ik.inletexhaustvalvestimer.R
+import com.lyutyvaler4ik.inletexhaustvalvestimer.view.resultFragment.ResultFragment
 import kotlinx.android.synthetic.main.fragment_valves.*
 
 class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListener {
@@ -77,7 +77,7 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
 
         btnNext.setOnClickListener {
             if (unit == 9) {
-                presenter.saveData(firstInValue, firstExValue, secondInValue, secondExValue)
+                presenter.saveData(unit, firstInValue, firstExValue, secondInValue, secondExValue)
                 activity!!
                     .supportFragmentManager
                     .beginTransaction()
@@ -87,7 +87,7 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
             } else if (firstInValue == 0L || firstExValue == 0L || secondInValue == 0L || secondExValue == 0L) {
                 showToast(getString(R.string.empty_data))
             } else {
-                presenter.saveData(firstInValue, firstExValue, secondInValue, secondExValue)
+                presenter.saveData(unit, firstInValue, firstExValue, secondInValue, secondExValue)
                 reset()
             }
         }
@@ -95,7 +95,8 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
 
     private fun fart() {
         val resID = resources.getIdentifier("fart", "raw", requireContext().packageName)
-        val mediaPlayer = MediaPlayer.create(requireContext(), resID).start()
+        //val mediaPlayer = MediaPlayer.create(requireContext(), resID).start()
+        MediaPlayer.create(requireContext(), resID).start()
     }
 
     private fun reset() {

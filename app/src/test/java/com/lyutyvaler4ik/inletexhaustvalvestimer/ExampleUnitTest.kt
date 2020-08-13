@@ -1,4 +1,4 @@
-package edu.example.inletexhaustvalvestimer
+package com.lyutyvaler4ik.inletexhaustvalvestimer
 
 import org.junit.Test
 

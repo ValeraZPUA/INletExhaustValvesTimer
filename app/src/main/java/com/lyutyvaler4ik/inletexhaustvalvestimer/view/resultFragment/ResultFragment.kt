@@ -1,4 +1,4 @@
-package edu.example.inletexhaustvalvestimer.view.resultFragment
+package com.lyutyvaler4ik.inletexhaustvalvestimer.view.resultFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-import edu.example.inletexhaustvalvestimer.R
-import edu.example.inletexhaustvalvestimer.models.ScreenValues
-import edu.example.inletexhaustvalvestimer.models.ValveStore
-import kotlinx.android.synthetic.main.fragment_result.*
+import com.lyutyvaler4ik.inletexhaustvalvestimer.R
+import com.lyutyvaler4ik.inletexhaustvalvestimer.models.ScreenValues
+import com.lyutyvaler4ik.inletexhaustvalvestimer.models.ValveStore
 
 class ResultFragment : Fragment() {
 
