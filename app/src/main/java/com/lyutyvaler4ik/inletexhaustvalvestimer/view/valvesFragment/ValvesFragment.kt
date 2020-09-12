@@ -12,8 +12,10 @@ import android.view.ViewGroup
 import android.widget.Chronometer
 import android.widget.TextView
 import android.widget.Toast
+import com.lyutyvaler4ik.inletexhaustvalvestimer.Constants
 
 import com.lyutyvaler4ik.inletexhaustvalvestimer.R
+import com.lyutyvaler4ik.inletexhaustvalvestimer.untils.PreferenceHelper
 import com.lyutyvaler4ik.inletexhaustvalvestimer.view.resultFragment.ResultFragment
 import kotlinx.android.synthetic.main.fragment_valves.*
 
@@ -47,6 +49,8 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
 
     private var unit = 1
 
+    private var valvesQuantity = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,6 +63,9 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
         vibro = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         title = view.findViewById(R.id.title)
         title.text = getString(R.string.unit, unit.toString())
+
+        valvesQuantity =  arguments?.getInt(Constants.VALVES_QUANTITY)
+            ?: PreferenceHelper.getSharedPreferences(requireContext()).getString(Constants.VALVES_QUANTITY, "0")!!.toInt()
 
         chronometerFirstIn = view.findViewById(R.id.chronometerFirstIn)
         chronometerSecondIn = view.findViewById(R.id.chronometerSecondIn)
@@ -76,7 +83,7 @@ class ValvesFragment : Fragment(), View.OnLongClickListener, View.OnClickListene
         }
 
         btnNext.setOnClickListener {
-            if (unit == 9) {
+            if (unit == valvesQuantity) {
                 presenter.saveData(unit, firstInValue, firstExValue, secondInValue, secondExValue)
                 activity!!
                     .supportFragmentManager
